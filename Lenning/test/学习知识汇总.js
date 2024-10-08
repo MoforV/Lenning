@@ -139,3 +139,47 @@ Express路由
 		局部中间件就是使用变量接收的中间件
 		const mw1 = (req,res,next) => { console.log('局部中间件') }
 		app.get('/', mw1, (req, res) => {res.send('输出')})
+		
+		app是可以调用多个中间件的：
+		const mw1 = (req,res,next) => { console.log('局部中间件1') }
+		const mw2 = (req,res,next) => { console.log('局部中间件2') }
+		app.get('/', mw1, mw2, (req, res) => {res.send('输出')})
+	
+	中间件的分类：
+		1、应用级中间件：通过app.use(), app.get(), app.post() 绑定到实例上的中间件
+		2、路由级中间件：和应用级中间件没太大区别，一个绑定在app上一个绑定在router上
+		3、错误级中间件：错误中间件是在发生错误后不让整个项目发生崩溃的解决办法；
+			提交错误不中断项目，例子：
+			
+			app.get('/', (req, res) => {
+				throw new Error('错误内容'); //定义一个错误
+				res.send('Home page');
+			})
+			// 使用错误级别中间件函数
+			app.use((err, req, res, next) => {
+				console.log('发生了错误,' + err.message);
+				res.send('Error：' + err.message); //里面的信息就是上面new Error的"错误内容"
+			})
+			
+			// 值得注意的是：错误级别中间件必须注册在所有路由之后
+			
+		4、Express内置中间件：有三个常用的中间件
+			express.static 管理静态资源
+			express.json 解析json格式的请求数据 4.16.0版本后使用
+				如果不配置express.json，请求的req.body对象默认是undefind
+				app.use(express.json())
+			express.urlencoded 解析url-encoded格式的请求数据 4.16.0版本后使用
+				如果不配置 出现的对象可能就是空对象
+				app.use(express.urlencoded({ extended: false }))
+		5、第三方中间件
+		* 自定义中间件
+		
+		
+	Express接口：
+		根据用户请求的路径不同所携带的参数不同，而返回不同的相应内容的叫做接口
+		
+	接口跨域问题：// 只要url上有任何一个地方不同 都是属于跨域请求的问题
+		使用cors中间件解决跨域问题：npm i cors
+		const cors = require('cors');
+		app.use(cors());
+		// 此需要在所有路由之前导入

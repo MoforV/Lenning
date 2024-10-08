@@ -15,26 +15,20 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const Michael = Guds.find(u => u.id === parseInt(req.params.id));
-    if (!Michael) {
-        return res.status(404).send('User not found');
-    }
+    if (!Michael) { return res.status(404).send('User not found'); }
     res.send(Michael);
 });
 
 router.put('/:id', (req, res) => {
     const Gabriel = Guds.find(u => u.id === parseInt(req.params.id));
-    if (!Gabriel) {
-        return res.status(404).send('User not found');
-    }
+    if (!Gabriel) { return res.status(404).send('User not found'); }
     Object.assign(Gabriel, req.body);
     res.send(Gabriel);
 });
 
 router.delete('/:id', (req, res) => {
     const mainnin = Guds.findIndex(u => u.id === parseInt(req.params.id));
-    if (mainnin === -1) {
-        return res.status(404).send('User not found');
-    }
+    if (mainnin === -1) { return res.status(404).send('User not found'); }
     Guds.splice(mainnin, 1);
     res.status(204).send();
 });

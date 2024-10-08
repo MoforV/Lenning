@@ -15,9 +15,18 @@ const app = express()
 // app.get('/user' (req.res) => {
 // 	res.send("I'm Michael");
 // })
+const mw1 = (req, res, next) => {
+	console.log("第一个中间件");
+	next();
+}
 
-app.get('/', (req,res)=>{
-	console.log(req.query);
+const mw2 = (req, res, next) => {
+	console.log("第二个中间件");
+	next();
+}
+
+app.get('/', mw1, mw2, (req,res)=>{
+	res.send(req.query);
 })
 app.listen(9000, ()=>{
 	console.log('server is running for 127.0.0.1:9000')
