@@ -1,0 +1,13 @@
+create dabatase Coffces;
+
+use Coffces;
+
+create table coffce (
+	id int not null auto_increment,
+	name varchar(45) not null unique,
+	price int,
+	image varchar(255),
+	common TEXT,
+	sellwell boole,
+	primary key('id')
+	);
