@@ -1,6 +1,7 @@
 const express = require('express');
+const router = require('.routers/eat_router');
+
 const app = express();
-const router = require('./eat_router');
 
 app.use(router)
 
