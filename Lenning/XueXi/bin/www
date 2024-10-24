@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('xuexi:server');
+var debug = require('debug')('node-bookstore:server');
 var http = require('http');
 
 /**
