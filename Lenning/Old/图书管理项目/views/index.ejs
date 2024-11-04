@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script src="/javascripts/jquery-3.4.1.min.js"></script>
+	<script>
+		$(function() {
+			$.ajax({
+				type: 'get',
+				url: 'getCategory',
+				dataType: 'json',
+				success: function(data) {
+					// console.log(data)
+					$('#category').empty()
+					//去重
+					var category = data.filter((e,i)=>{
+						return data.indexOf(e) === i
+					})
+					category.forEach((item,index)=>{
+						$('#category').append("<option value='"+item+"'>"+item+"</option>")
+					})
+				}
+			})
+		})
+	</script>
+  </head>
+  <body>
+	<h1><%= title %></h1>
+	<span style="position: absolute;top: 80px;right: 50px;">欢迎登录，<%= user.username %>！<a href="logout">退 出</a></span>
+	<div class="search-box">
+		<form class="search-form" action="/queryBooks" method="post">
+			<span>查询条件：</span>
+			<input class="search-name" type="text" name="book_name" placeholder="请输入图书名称"/>
+			<select class="search-type" name="category" id="category">
+				<option value="0">全部</option>
+				<option value="1">计算机</option>
+				<option value="2">科普</option>
+			</select>
+			<input class="search-btn" type="submit" value="搜索">
+		</form>
+		<a class="add-btn" href="/toAddBook">添加图书</a>
+	</div>
+	<div class="container">
+		<table class="data-table" border="1" id="tb-books">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>图书名称</th>
+					<th>作者</th>
+					<th>出版社</th>
+					<th>图书类别</th>
+					<th>图书描述</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% list.forEach(function(item){ %>
+					<tr>
+						<td><%= item.book_id %></td>
+						<td><%= item.book_name %></td>
+						<td><%= item.author %></td>
+						<td><%= item.publish %></td>
+						<td><%= item.category %></td>
+						<td><%= item.book_desc %></td>
+						<td>
+							<a class="upda" href="/toUpdate?id=<%= item.book_id %>">编辑</a>
+							<a class="del" href="/deleteBook?id=<%= item.book_id %>">删除</a>
+						</td>
+					</tr>
+				<% }); %>
+			</tbody>
+		</table>
+		<span>查询到 <%= total %> 本书</span>
+	</div>
+  </body>
+</html>
+

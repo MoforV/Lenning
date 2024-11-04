@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+	<div class="container">
+		<a href="/main">返回首页</a>
+		<form class="form" action="/addBook" method="post">
+			<table border="0">
+				<tr>
+					<td>图书类别：</td>
+					<td><input class="form-input" type="text" name="category"></td>
+				</tr>
+				<tr>
+					<td>图书名称：</td>
+					<td><input class="form-input" type="text" name="book_name"></td>
+				</tr>
+				<tr>
+					<td>作者：</td>
+					<td><input class="form-input" type="text" name="author"></td>
+				</tr>
+				<tr>
+					<td>出版社：</td>
+					<td><input class="form-input" type="text" name="publish"></td>
+				</tr>
+				<tr>
+					<td>图书描述：</td>
+					<td><input class="form-input" type="text" name="book_desc"></td>
+				</tr>
+				<tr>
+					<td><input class="btn-primary" type="submit" value="保存"></td>
+					<td><input class="btn-default" type="reset" value="重置"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+  </body>
+</html>
